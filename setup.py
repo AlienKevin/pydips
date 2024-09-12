@@ -17,9 +17,9 @@ setup(
     description='Multi-criteria Cantonese segmentation with dashes, intermediates, pipes, and spaces.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/ayaka14732/cantoseg',
+    url='https://github.com/AlienKevin/pydips',
     author='Kevin Xiang Li',
-    author_email='kevinx.li@outlook.com',
+    author_email='kevinli020508@gmail.com',
     license='MIT',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -45,7 +45,7 @@ setup(
     python_requires='>=3.10, <4',
     entry_points={},
     project_urls={
-        'Bug Reports': 'https://github.com/AlienKevin/dips/issues',
-        'Source': 'https://github.com/AlienKevin/dips',
+        'Bug Reports': 'https://github.com/AlienKevin/pydips/issues',
+        'Source': 'https://github.com/AlienKevin/pydips',
     }
 )
