@@ -1,5 +1,4 @@
 import ctypes
-import numpy as np
 import re
 from . import api
 from .utils import suppress_stdout_stderr
@@ -66,14 +65,12 @@ class BertModel:
         # handle singleton case
         if isinstance(text, str):
             text = [text]
-            squeeze = True
-        else:
-            squeeze = False
+        
         n_input = len(text)
 
         # create embedding memory
-        logits = np.zeros((n_input * max_text_len, N_TAGS), dtype=np.float32)
-        logits_p = logits.ctypes.data_as(ctypes.POINTER(ctypes.c_float))
+        logits = (ctypes.c_float * (n_input * max_text_len * N_TAGS))()
+        logits_p = ctypes.cast(logits, ctypes.POINTER(ctypes.c_float))
 
         # loop over batches
         indices = range(0, n_input, self.batch_size)
@@ -83,19 +80,18 @@ class BertModel:
             batch_p = increment_pointer(logits_p, i * N_TAGS)
             self.cut_batch(batch, output=batch_p, **kwargs)
 
-        # return squeezed maybe
-        return logits[0] if squeeze else logits
+        return logits
 
     def cut(self, text, mode='fine'):
         assert isinstance(text, str)
         logits = self._cut([text])
         predictions = []
-        for i in range(1, len(logits) - 1):
+        for i in range(1 * N_TAGS, len(logits) - N_TAGS, N_TAGS):
             max_value = float('-inf')
             max_index = -1
-            for j in range(len(logits[i])):
-                if logits[i][j] > max_value:
-                    max_value = logits[i][j]
+            for j in range(N_TAGS):
+                if logits[i + j] > max_value:
+                    max_value = logits[i + j]
                     max_index = j
             predictions.append(max_index)
         dips_result = ''.join(f'{["-", "", "|", " "][pred]}{char}' for char, pred in zip(text, predictions)).lstrip()
