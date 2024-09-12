@@ -41,7 +41,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-pydips = ["../models/electra-small-6-layers-q4_0.gguf", "../binaries/macos/libbert.dylib"]
+pydips = ["models/electra-small-6-layers-q4_0.gguf", "binaries/macos/libbert.dylib"]
 
 [tool.setuptools.dynamic]
 version = {attr = "pydips.version.__version__"}
