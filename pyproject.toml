@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pydips"
-dynamic = ["version"]
+version = "0.0.2"
 description = "Multi-criteria Cantonese segmentation with dashes, intermediates, pipes, and spaces."
 readme = "README.md"
 authors = [
@@ -42,6 +42,3 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 pydips = ["models/electra-small-6-layers-q4_0.gguf", "binaries/macos/libbert.dylib"]
-
-[tool.setuptools.dynamic]
-version = {attr = "pydips.version.__version__"}
