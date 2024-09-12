@@ -18,7 +18,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/ayaka14732/cantoseg',
-    author='Kevin Li',
+    author='Kevin Xiang Li',
     author_email='kevinx.li@outlook.com',
     license='MIT',
     classifiers=[
