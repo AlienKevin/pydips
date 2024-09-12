@@ -7,17 +7,24 @@ Note: This package is still in beta, there might be breaking changes in the futu
 ## Install
 
 ```sh
-$ pip install pydips
+pip install pydips
 ```
 
 ## Usage
 
 ```python
->>> import pydips
->>> pydips.cut('阿張先生嗰時好nice㗎', mode='coarse')
+>>> from pydips import BertModel
+>>> model = BertModel()
+
+>>> model.cut('阿張先生嗰時好nice㗎', mode='coarse')
 ['阿張先生', '嗰時', '好', 'nice', '㗎']
->>> pydips.cut('阿張先生嗰時好nice㗎', mode='fine')
+
+>>> model.cut('阿張先生嗰時好nice㗎', mode='fine')
 ['阿', '張', '先生', '嗰', '時', '好', 'nice', '㗎']
->>> pydips.cut('阿張先生嗰時好nice㗎', mode='dips_str')
+
+>>> model.cut('阿張先生嗰時好nice㗎', mode='dips_str')
 '阿-張|先生 嗰-時 好 nice 㗎'
+
+>>> model.cut('阿張先生嗰時好nice㗎', mode='dips')
+['S', 'D', 'P', 'I', 'S', 'D', 'S', 'S', 'I', 'I', 'I', 'S']
 ```
