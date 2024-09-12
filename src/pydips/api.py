@@ -1,5 +1,4 @@
 import ctypes
-import numpy as np
 
 from .utils import load_shared_library
 
@@ -63,10 +62,10 @@ _lib.bert_tokenize_c.argtypes = [
     ctypes.c_uint64,                # uint64_t n_max_tokens
 ]
 def bert_tokenize(ctx, text, n_max_tokens):
-    tokens = np.zeros(n_max_tokens, dtype=np.int32)
-    tokens_p = tokens.ctypes.data_as(ctypes.POINTER(ctypes.c_int32))
-    n_tokens = _lib.bert_tokenize_c(ctx, text.encode('utf-8'), tokens_p, n_max_tokens)
-    return tokens[:n_tokens]
+    tokens = [0] * n_max_tokens
+    tokens_array = (ctypes.c_int32 * n_max_tokens)(*tokens)
+    n_tokens = _lib.bert_tokenize_c(ctx, text.encode('utf-8'), tokens_array, n_max_tokens)
+    return tokens_array[:n_tokens]
 
 # detokenize
 _lib.bert_detokenize_c.restype = ctypes.c_uint64
@@ -90,7 +89,7 @@ def bert_detokenize(ctx, tokens, max_len, debug):
 _lib.bert_cut_batch_c.argtypes = [
     ctypes.c_void_p,                 # struct bert_ctx * ctx
     ctypes.POINTER(ctypes.c_char_p), # const char ** texts
-    ctypes.POINTER(ctypes.c_float),  # float * embeddings
+    ctypes.POINTER(ctypes.c_float),  # float * logits
     ctypes.c_int32,                  # int32_t n_inputs
     ctypes.c_bool,                   # bool normalize
     ctypes.c_int32,                  # int32_t n_threads
@@ -103,7 +102,7 @@ def bert_cut_batch_c(ctx, texts, embed_p, normalize, n_threads):
     return _lib.bert_cut_batch_c(ctx, strings, embed_p, n_inputs, normalize, n_threads)
 def bert_cut_batch(ctx, texts, normalize, n_threads):
     n_inputs = len(texts)
-    logits = np.zeros((n_inputs, N_TAGS), dtype=np.float32)
-    logits_p = logits.ctypes.data_as(ctypes.POINTER(ctypes.c_float))
+    logits = (ctypes.c_float * (n_inputs * N_TAGS))()
+    logits_p = ctypes.cast(logits, ctypes.POINTER(ctypes.c_float))
     bert_cut_batch_c(ctx, texts, logits_p, normalize, n_threads)
-    return logits
+    return [logits[i:i+N_TAGS] for i in range(0, len(logits), N_TAGS)]

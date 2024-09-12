@@ -89,7 +89,15 @@ class BertModel:
     def cut(self, text, mode='fine'):
         assert isinstance(text, str)
         logits = self._cut([text])
-        predictions = np.argmax(logits, axis=-1)[1:-1]
+        predictions = []
+        for i in range(1, len(logits) - 1):
+            max_value = float('-inf')
+            max_index = -1
+            for j in range(len(logits[i])):
+                if logits[i][j] > max_value:
+                    max_value = logits[i][j]
+                    max_index = j
+            predictions.append(max_index)
         dips_result = ''.join(f'{["-", "", "|", " "][pred]}{char}' for char, pred in zip(text, predictions)).lstrip()
         
         if mode == 'fine':
