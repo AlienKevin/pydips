@@ -17,6 +17,8 @@ def load_shared_library(lib_base_name):
         lib_paths += [
             base_path / 'macos' / f'lib{lib_base_name}.dylib',
         ]
+        # Load ggml first before loading main lib
+        ctypes.CDLL(str((base_path / 'macos' / 'libggml.dylib').resolve()), mode=ctypes.RTLD_GLOBAL)
     elif sys.platform.startswith('linux'):
         lib_paths += [
             base_path / 'linux' / f'lib{lib_base_name}.so',

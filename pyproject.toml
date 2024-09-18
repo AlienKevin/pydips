@@ -43,6 +43,7 @@ where = ["src"]
 pydips = [
     "models/electra-small-6-layers-q4_0.gguf",
     "binaries/macos/libbert.dylib",
+    "binaries/macos/libggml.dylib",
     "binaries/linux/libbert.so",
     "binaries/linux/libggml.so",
 ]
