@@ -17,10 +17,10 @@ def load_shared_library(lib_base_name):
         lib_paths += [
             base_path / 'macos' / f'lib{lib_base_name}.dylib',
         ]
-    # elif sys.platform.startswith('linux'):
-    #     lib_paths += [
-    #         base_path / f'lib{lib_base_name}.so',
-    #     ]
+    elif sys.platform.startswith('linux'):
+        lib_paths += [
+            base_path / 'linux' / f'lib{lib_base_name}.so',
+        ]
     # elif sys.platform == 'win32':
     #     lib_paths += [
     #         base_path / f'{lib_base_name}.dll',

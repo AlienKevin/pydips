@@ -3,6 +3,7 @@
 Multi-criteria Cantonese segmentation with **d**ashes, **i**ntermediates, **p**ipes, and **s**paces.
 
 Note: This package is still in beta, there might be breaking changes in the future.
+Currently supports macOS (Apple Silicon) and Linux (x86_64 with avx, avx2, and fma instructions)
 
 ## Install
 
