@@ -29,3 +29,12 @@ pip install pydips
 >>> model.cut('阿張先生嗰時好nice㗎', mode='dips')
 ['S', 'D', 'P', 'I', 'S', 'D', 'S', 'S', 'I', 'I', 'I', 'S']
 ```
+
+## Release
+
+1. Bump version in `pyproject.toml`
+2. Clear the exising `dist` folder: `rm -rf dist/`
+3. Buid: `python -m build`
+4. Upload to TestPyPI: `twine upload -r testpypi dist/*`
+5. Test TestPyPI version locally: `pip install -i https://test.pypi.org/simple/ pydips`
+6. Upload to PyPI: `twine upload dist/*`
