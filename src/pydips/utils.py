@@ -21,6 +21,8 @@ def load_shared_library(lib_base_name):
         lib_paths += [
             base_path / 'linux' / f'lib{lib_base_name}.so',
         ]
+        # Load ggml first before loading main lib
+        ctypes.CDLL(str((base_path / 'linux' / 'libggml.so').resolve()), mode=ctypes.RTLD_GLOBAL)
     # elif sys.platform == 'win32':
     #     lib_paths += [
     #         base_path / f'{lib_base_name}.dll',
