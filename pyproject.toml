@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pydips"
-version = "0.0.3"
+version = "0.0.4"
 description = "Multi-criteria Cantonese segmentation with dashes, intermediates, pipes, and spaces."
 readme = "README.md"
 authors = [{ name = "Kevin Xiang Li", email = "kevinli020508@gmail.com" }]
