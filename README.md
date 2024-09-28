@@ -5,6 +5,8 @@ Multi-criteria Cantonese segmentation with **d**ashes, **i**ntermediates, **p**i
 Note: This package is still in beta, there might be breaking changes in the future.
 Currently supports macOS (Apple Silicon) and Linux (x86_64 with avx, avx2, and fma instructions)
 
+See https://github.com/AlienKevin/dips for more details on the segmentation model.
+
 ## Install
 
 ```sh
